@@ -1,4 +1,4 @@
-# MOTH_Variable_Light
+# MOTH Variable Light
 
 Visit this site: http://htmlpreview.github.io/?https://github.com/rsdnco/MOTH_Variable_Light/blob/master/index.html
 
