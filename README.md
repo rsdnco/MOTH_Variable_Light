@@ -1,6 +1,6 @@
 # MOTH Variable Light
 
-Visit this site: http://htmlpreview.github.io/?https://github.com/rsdnco/MOTH_Variable_Light/blob/master/index.html
+Visit this site: https://htmlpreview.github.io/?https://github.com/rsdnco/MOTH_Variable_Light/blob/master/index.html
 
 # For this variable test to work you will need to view this project in Chrome. 
 
