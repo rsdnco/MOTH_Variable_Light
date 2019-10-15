@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    @font-face {
+      font-family: "Moth-Var";
+      src: url("MuseumoftheHomeVariableBetaGX.ttf") format("truetype-variations");
+    }
+
+    html,
+    body,
+    p {
+      margin: 0;
+      padding: 0;
+        background-color: #2828bc;
+    }
+
+    .moth {
+        
+        --axis: 200;    
+      position: absolute;
+        color:#ff593c;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+      font-family: "Moth-Var";
+      font-size: 24vh;
+      text-align: center;
+      font-variation-settings: "ANGL" 30, "wdth" var(--axis);
+    }
+  </style>
+</head>
+
+<body>
+<div contenteditable="true">    
+  <p class="moth"> 
+    Show Me<br/>
+    The Light
+  </p>
+    </div>
+  <script>
+ 
+      
+var text = document.querySelector(".moth");
+
+text.addEventListener("input", function() {
+  this.setAttribute("data-text", this.innerText);
+});
+
+const minAxisValue = 300;
+const maxAxisValue = 50;
+
+const minEventValue = 5;
+const maxEventValue = 50;
+
+text.style.setProperty("--axis", 200);
+
+if ( 'AmbientLightSensor' in window ) {
+  const sensor = new AmbientLightSensor();
+  sensor.onreading = () => {
+	  
+	 fluidAxisVariation(minAxisValue, maxAxisValue, minEventValue, maxEventValue, sensor.illuminance, "--axis", text);
+    
+    // console.log('Current light level:', sensor.illuminance);
+  };
+  sensor.onerror = (event) => {
+    console.log(event.error.name, event.error.message);
+  };
+  sensor.start();
+}
+// Fluid Axis Variation Event
+function fluidAxisVariation(minimumAxisValue, maximumAxisValue, minimumEventValue, maximumEventValue, eventValue, axisCustomPropertyName, element) {
+
+	const minAxisValue = minimumAxisValue;
+	const maxAxisValue = maximumAxisValue;
+    const minEventValue = minimumEventValue;
+	const maxEventValue = maximumEventValue;
+	const currentEventValue = eventValue;
+
+	const eventPercent = (currentEventValue - minEventValue) / (maxEventValue - minEventValue);
+	const fontAxisScale = eventPercent * (minAxisValue - maxAxisValue) + maxAxisValue;
+	
+	const fontAxisScale2 = eventPercent * (minAxisValue - maxAxisValue) + maxAxisValue;
+
+	const newAxisValue = currentEventValue > maxEventValue
+	   ? minAxisValue
+       : currentEventValue < minEventValue
+   			? maxAxisValue
+   			: fontAxisScale;
+	
+	element.style.setProperty(axisCustomPropertyName, newAxisValue);
+}
+
+
+  </script>
+
+</body>
+
+</html>
